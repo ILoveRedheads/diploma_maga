@@ -1,0 +1,43 @@
+﻿.comment {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.comment-field {
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+    align-items: center
+}
+
+.comment-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.comment .comment-content img {
+    max-width: 960px;
+    max-height: 540px;
+    justify-content: center;
+}
+
+.comment .comment-content audio {
+    width: 960px;
+    justify-content: center;
+}
+
+.text-content {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    max-width: 85%;
+}
+
+.header-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}

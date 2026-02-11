@@ -1,0 +1,38 @@
+﻿@page "/vr-headsets"
+@page "/"
+@inherits BasePage
+
+<VrHeadsetModal @ref="@_createVrHeadsetModal" OnCreate="GetListAsync" />
+
+<LoadingContent IsLoadingFinish="@_isLoadingFinish">
+    <div class="header">
+        <AddButton Label="Добавить" OnClick="@(() => _createVrHeadsetModal.OpenModalWindowAsync())" />
+    </div>
+
+    @if (_vrHeadsets.Count() > 0)
+    {
+        <div class="entity-page">
+            @foreach (var vrHeadset in _vrHeadsets)
+            {
+                <div class="entity-card" @onclick="@(() => _createVrHeadsetModal.OpenModalWindowAsync(vrHeadset))">
+                    <span>Гарнитура: <span class="bold">@vrHeadset.Name</span></span>
+
+                    @if (vrHeadset.SceneId is null)
+                    {
+                        <span>Сцена не задана</span>
+                        <img src="images/not-available.png" alt="not-available" />
+                    }
+                    else
+                    {
+                        <span>Сцена: <span class="bold">@vrHeadset.SceneName</span></span>
+                        <img src="@vrHeadset.ScenePreviewLink" alt="@vrHeadset.SceneName" />
+                    }
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="big-text">Записей не найденно</div>
+    }
+</LoadingContent>

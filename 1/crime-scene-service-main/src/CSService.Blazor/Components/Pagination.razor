@@ -1,0 +1,74 @@
+﻿﻿<div class="pagination-content">
+    @if (EnableSearch)
+    {
+        <div class="pagination-header">
+            <input type="text"
+                   class="form-control"
+                   placeholder="Начните вводить текст..."
+                   @bind-value="@PageQuery.Search"
+                   @bind-value:event="oninput"
+                   @onkeyup="OnSearchChanged" />
+
+            @Header
+        </div>
+    }
+    else if (Header is not null)
+    {
+        <div class="pagination-header-right">
+            @Header
+        </div>
+    }
+
+    <div class="pagination-body">
+        @Body
+
+        @if (EntitiesCount != 0)
+        {
+            <div class="pagination-footer">
+                @Footer
+
+                <div class="row navigation">
+                    <div class="col">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="pagination-point"
+                                    @onclick="@(() => OnPageChangeAsync(PageQuery.Page - 1))">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+                                    </svg>
+                                </li>
+
+                                @foreach (var pageNumber in GetPageNumbers())
+                                {
+                                    <li @onclick="@(() => OnPageChangeAsync(pageNumber))"
+                                        style="cursor: pointer;"
+                                        class="pagination-point @(PageQuery.Page == pageNumber ? "selected-page" : null) page-item">
+                                        <span>@(pageNumber + 1)</span>
+                                    </li>
+                                }
+
+                                <li class="pagination-point"
+                                    @onclick="@(() => OnPageChangeAsync(PageQuery.Page + 1))">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                                    </svg>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="col">
+                        <select class="count-dropdown" @bind-value="@PageQuery.Limit" @onchange="@OnLimitChangeAsync" @bind-value:event="oninput">
+                            <option>1</option>
+                            <option>5</option>
+                            <option>10</option>
+                            <option>25</option>
+                            <option>50</option>
+                            <option>100</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

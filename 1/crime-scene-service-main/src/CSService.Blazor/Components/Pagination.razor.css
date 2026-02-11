@@ -1,0 +1,81 @@
+﻿.navigation {
+    margin-left: auto;
+}
+
+.pagination-point {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 6px;
+    gap: 10px;
+    background: #FFFFFF;
+    border: 1px solid #D3D3E3;
+    border-radius: 8px;
+    margin: 0px 2px 0px 2px;
+}
+
+.pagination-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    height: 100%
+}
+
+.pagination-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.selected-page {
+    background: #0d47a1;
+    color: #F0F0F5;
+    border: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.count-dropdown {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 16px;
+    gap: 16px;
+    width: 98px;
+    height: 36px;
+    background: #F9F9FB;
+    border: 1px solid #D3D3E3;
+    border-radius: 8px;
+}
+
+.pagination-header {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.pagination-header-right {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    width: 100%;
+    justify-content: end;
+    margin-bottom: 24px;
+}
+
+.pagination-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+}
+
+@media (max-width: 1040px) {
+    .pagination-header {
+        flex-wrap: wrap;
+    }
+}

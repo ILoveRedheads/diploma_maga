@@ -1,0 +1,25 @@
+﻿@page "/login"
+@layout DefaultLayout
+
+<Card Title="Вход">
+    <div>
+        <label class="input-field-label">Логин</label>
+        <input class="input-field" @bind="@_loginDto.Login" />
+    </div>
+
+    <div>
+        <label class="input-field-label">Пароль</label>
+
+        <div class="password-input-container">
+            <input class="input-field" @bind="@_loginDto.Password" type="@(_showPassword ? "test" : "password")" />
+
+            <button type="button" class="show-password-button" @onclick="TogglePasswordVisibility">
+                <span>@(_showPassword ? "Показать" : "Скрыть")</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="login-button-wrapper">
+        <button class="app-button login-button" @onclick="@LoginAsync">Войти</button>
+    </div>
+</Card>

@@ -1,0 +1,10 @@
+﻿.entity-card img {
+    height: 180px;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin-bottom: 24px;
+}

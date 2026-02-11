@@ -1,0 +1,36 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Управление сценами</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="app-nav-block">
+    <div class="flex-column">
+        <div class="app-nav-item">
+            <NavLink class="nav-link" href="vr-headsets" Match="NavLinkMatch.All">
+                <span class="bi bi-badge-vr" aria-hidden="true"></span> VR гарнитуры
+            </NavLink>
+        </div>
+
+        <div class="app-nav-item">
+            <NavLink class="nav-link" href="scenes" Match="NavLinkMatch.All">
+                <span class="bi bi-card-image" aria-hidden="true"></span> Сцены
+            </NavLink>
+        </div>
+
+        <div class="app-nav-item">
+            <NavLink class="nav-link" href="sessions" Match="NavLinkMatch.All">
+                <span class="bi bi-inbox" aria-hidden="true"></span> Сеансы
+            </NavLink>
+        </div>
+
+        <div class="app-nav-item">
+            <NavLink class="nav-link" @onclick="@LogoutAsync" style="cursor: pointer">
+                <span class="bi bi-box-arrow-left" aria-hidden="true"></span> Выйти из аккаунта
+            </NavLink>
+        </div>
+    </div>
+</div>

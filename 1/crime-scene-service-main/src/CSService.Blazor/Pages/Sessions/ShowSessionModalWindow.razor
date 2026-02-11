@@ -1,0 +1,63 @@
+﻿<ModalWindow @ref="@_modalWindow" ModalId="ShowSession" WindowWidth="1100px" ModalBodyClass="app-scroll-content">
+    <Header>
+        <div class="app-modal-header-close">
+            <CloseButton OnClick="@_modalWindow.Close" />
+            <h4 class="modal-title">Просмотр контента сеанса</h4>
+        </div>
+
+        <div class="header-buttons">
+            <Button Label="Скачать протокол" OnClick="async () => await DownloadFile()" />
+            <DeleteButton OnClick="async () => await Delete()" />
+        </div>
+    </Header>
+
+    <Body>
+        <div class="comment">
+            <div class="comment-field">
+                <span>Название сцены: <span class="bold">@_session?.SceneName</span></span>
+            </div>
+
+            <div class="comment-field">
+                <span>Имя студента: <span class="bold">@_session?.FirstName</span></span>
+            </div>
+
+            <div class="comment-field">
+                <span>Фамилия студента: <span class="bold">@_session?.LastName</span></span>
+            </div>
+
+            <div class="comment-field">
+                <span>Группа: <span class="bold">@_session?.GroupName</span></span>
+            </div>
+
+            <hr />
+            <div class="comment-field">
+                <span>Сделанные фотографии</span>
+            </div>
+
+            @foreach (var photo in _session.Photos)
+            {
+                <div class="comment-content">
+                    <img src="@photo.ScreenshotLink"/>
+                    <audio controls src="@photo.AudioLink" />
+                    <div class="text-content">
+                        <span>Расшифрованный текст: </span>
+                        <span>@photo.Text</span>
+                    </div>
+                </div>
+            }
+
+            <hr />
+            <div class="comment-field">
+                <span>Записаный аудио протокол с расшифровкой</span>
+            </div>
+
+            <div class="comment-content">
+                <audio controls src="@_session.Comments.FirstOrDefault()?.AudioLink" />
+                <div class="text-content">
+                    <span>Расшифрованный текст: </span>
+                    <span>@_session.Comments.FirstOrDefault()?.Text</span>
+                </div>
+            </div>
+        </div>
+    </Body>
+</ModalWindow>

@@ -1,0 +1,35 @@
+@page "/register"
+@layout DefaultLayout
+
+<Card Title="Регистрация">
+    <div>
+        <label class="input-field-label">Имя</label>
+        <input class="input-field" @bind="@_registerDto.FirstName" />
+    </div>
+
+    <div>
+        <label class="input-field-label">Фамилия</label>
+        <input class="input-field" @bind="@_registerDto.LastName" />
+    </div>
+
+    <div>
+        <label class="input-field-label">Логин</label>
+        <input class="input-field" @bind="@_registerDto.Login" />
+    </div>
+
+    <div>
+        <label class="input-field-label">Пароль</label>
+
+        <div class="password-input-container">
+            <input class="input-field" @bind="@_registerDto.Password" type="@(_showPassword ? "test" : "password")" />
+
+            <button type="button" class="show-password-button" @onclick="TogglePasswordVisibility">
+                <span>@(_showPassword ? "Показать" : "Скрыть")</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="register-button-wrapper">
+        <button class="app-button register-button" @onclick="@RegisterAsync">Зарегистрироваться</button>
+    </div>
+</Card>

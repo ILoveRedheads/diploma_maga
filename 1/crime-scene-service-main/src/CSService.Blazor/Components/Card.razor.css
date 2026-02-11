@@ -1,0 +1,10 @@
+﻿.page-card {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 1px 10px #0000001a;
+    background: #FFF;
+    box-sizing: unset;
+    width: 500px;
+}

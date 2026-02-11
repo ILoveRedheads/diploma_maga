@@ -1,0 +1,41 @@
+﻿﻿<style>
+  .app-modal#@ModalId {
+    backdrop-filter: blur(5px);
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+ 
+  .custom-modal-dialog#@ModalId {
+    display: flex;
+    width: @WindowWidth;
+    height: @WindowHeight;
+    align-self: @AlignSelf;
+    flex-direction: column;
+  }
+
+  .custom-modal-dialog#@ModalId > .modal-content > .modal-body {
+    overflow-y: auto;
+    flex-grow: 1;
+  }
+
+</style>
+
+@if (_showModal) {
+    <div class="modal fade show app-modal" id="@ModalId" tabindex="-1" role="dialog" aria-hidden="false">
+        <div role="document" id="@ModalId" class="custom-modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @Header
+                </div>
+
+                <div class="modal-body @ModalBodyClass">
+                    @Body
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-backdrop fade show"></div>
+}

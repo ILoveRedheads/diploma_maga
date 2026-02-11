@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/StartScene.unity
+    guid: 8a8e42908979c9842a00b045469fa20e
+  - enabled: 1
+    path: Assets/Scenes/CrimePhoto.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  m_configObjects:
+    Unity.XR.PICO.LivePreview.Settings: {fileID: 11400000, guid: a1e14fc744993d84f991c450111780f0, type: 2}
+    Unity.XR.PXR.Settings: {fileID: 11400000, guid: d88c7c77718f4aa468cec5f8447f8018, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: a56c59081bb609e4b854f19db020b9af, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 4a13734b1bcf7de4b984cda035377b1e, type: 2}

@@ -1,0 +1,14 @@
+﻿@inherits InputBase<string>
+
+<div>
+    <label class="input-field-label">@Label</label>
+    <input class="input-field @(EditContext.FieldCssClass(FieldIdentifier))"
+           @bind="@CurrentValueAsString"
+           placeholder="@Placeholder"
+           disabled="@Disabled" />
+
+    @if (ValidationExpression is not null)
+    {
+        <ValidationMessage For="@ValidationExpression" />
+    }
+</div>

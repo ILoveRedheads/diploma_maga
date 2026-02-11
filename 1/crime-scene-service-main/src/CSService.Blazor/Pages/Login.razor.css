@@ -1,0 +1,25 @@
+﻿.password-input-container {
+    position: relative;
+}
+
+.show-password-button {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: 12px;
+    color: #007bff;
+}
+
+.login-button-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.login-button {
+    width: 110px;
+}

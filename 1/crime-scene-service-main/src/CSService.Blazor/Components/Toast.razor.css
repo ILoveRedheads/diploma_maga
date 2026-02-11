@@ -1,0 +1,76 @@
+﻿﻿.toast {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 64px;
+    width: 312px;
+    top: 64px;
+    right: 32px;
+    gap: 8px;
+    padding: 8px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 10px #0000001a,0 2px 15px #0000000d;
+    position: fixed;
+    animation-duration: .7s;
+    z-index: 2000;
+}
+
+.toast-info-icon {
+    font-size: 24px;
+    color: green;
+}
+
+.toast-error-icon {
+    font-size: 24px;
+    color: red;
+}
+
+.toast-in {
+    animation-name: bounceInRight;
+}
+
+.toast-out {
+    animation-name: bounceOutRight;
+}
+
+@keyframes bounceInRight {
+    0%,60%,75%,90%,to {
+        animation-timing-function: cubic-bezier(.215, .61, .355, 1)
+    }
+
+    0% {
+        opacity: 0;
+        transform: translate3d(3000px, 0, 0);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translate3d(-25px, 0, 0);
+    }
+
+    75% {
+        transform: translate3d(10px, 0, 0);
+    }
+
+    90% {
+        transform: translate3d(-5px, 0, 0);
+    }
+
+    to {
+        transform: none;
+    }
+}
+
+@keyframes bounceOutRight {
+    20% {
+        opacity: 1;
+        transform: translate3d(-20px, 0, 0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translate3d(2000px, 0, 0);
+    }
+}

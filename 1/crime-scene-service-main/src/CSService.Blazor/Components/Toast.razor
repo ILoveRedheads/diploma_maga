@@ -1,0 +1,8 @@
+﻿@if (_isVisible)
+{
+    <div class="@_class">
+        <i class="@_iconClass"></i>
+        <span>@_message</span>
+        <button type="button" class="btn-close" aria-label="Close" @onclick="Hide" />
+    </div>
+}

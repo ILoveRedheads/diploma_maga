@@ -1,0 +1,35 @@
+[2026-02-06 19:09:20.037] [PSS] [info] ***********  Log Begin **********
+[2026-02-06 19:09:20.037] [PSS] [info] process id= 21512
+[2026-02-06 19:09:20.037] [PSS] [debug] [21512|21228]streaming_driver_interface_impl.cpp:19 StreamingDriverInterfaceImpl: callback= 0x18a39fff300, this= 0x189942f1810
+[2026-02-06 19:09:20.037] [PSS] [error] [21512|21228]streaming_driver_interface_impl.cpp:115 SetTrackingOrigin: streaming not started, this= 0x189942f1810
+[2026-02-06 19:09:20.038] [PSS] [info] [21512|21228]streaming_driver_interface_impl.cpp:24 ConnectToService: connect to service, client_id= tEGsWBNb1nYP67NN, this= 0x189942f1810
+[2026-02-06 19:09:20.038] [PSS] [info] [21512|21228]streaming_client_impl.cpp:25 ConnectToService: client_id= tEGsWBNb1nYP67NN, name= 3D Engine, desp= StreamingSceneRender, this= 0x18a3a813eb0
+[2026-02-06 19:09:20.038] [PSS] [debug] [21512|21820]streaming_client_impl.cpp:137 InvokeConnectToService: connect to service through the network, port= 54000, this= 0x18a3a813eb0
+[2026-02-06 19:09:20.038] [PSS] [debug] [21512|21820]transport_client_tcp3.cpp:34 Start: buffer size(send\recv): 2097152\2097152, this= 0x1896fc8c5d0
+[2026-02-06 19:09:20.038] [PSS] [info] [21512|21820]transport_client_tcp3.cpp:59 Start: server= 127.0.0.1:54000, local=0.0.0.0:0, this= 0x1896fc8c5d0
+[2026-02-06 19:09:22.084] [PSS] [info] [21512|25648]streaming_client_impl.cpp:62 NotifyConnectResult: network connect to service result= 10061, this= 0x18a3a813eb0
+[2026-02-06 19:09:22.084] [PSS] [error] [21512|25648]streaming_client_impl.cpp:64 NotifyConnectResult: connect to service network error= 10061, this= 0x18a3a813eb0
+[2026-02-06 19:09:22.084] [PSS] [error] [21512|21820]streaming_driver_interface_impl.cpp:332 NotifyClientConnectResult: connect to service failed, Network Error, this= 0x189942f1810
+[2026-02-06 19:09:22.084] [PSS] [error] [21512|25648]transport_client_tcp3.cpp:129 HandleConnect: connected error= Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение, this= 0x1896fc8c5d0
+[2026-02-06 19:14:12.210] [PSS] [debug] [21512|21228]streaming_driver_interface_impl.cpp:19 StreamingDriverInterfaceImpl: callback= 0x1896babc4b0, this= 0x18a6aca0560
+[2026-02-06 19:14:12.210] [PSS] [error] [21512|21228]streaming_driver_interface_impl.cpp:115 SetTrackingOrigin: streaming not started, this= 0x18a6aca0560
+[2026-02-06 19:14:12.210] [PSS] [info] [21512|21228]streaming_driver_interface_impl.cpp:24 ConnectToService: connect to service, client_id= qI6HXMBNM3SV4C8S, this= 0x18a6aca0560
+[2026-02-06 19:14:12.210] [PSS] [info] [21512|21228]streaming_client_impl.cpp:25 ConnectToService: client_id= qI6HXMBNM3SV4C8S, name= 3D Engine, desp= StreamingSceneRender, this= 0x189959f0280
+[2026-02-06 19:14:12.210] [PSS] [debug] [21512|2660]streaming_client_impl.cpp:137 InvokeConnectToService: connect to service through the network, port= 54000, this= 0x189959f0280
+[2026-02-06 19:14:12.210] [PSS] [debug] [21512|2660]transport_client_tcp3.cpp:34 Start: buffer size(send\recv): 2097152\2097152, this= 0x1896fc8b610
+[2026-02-06 19:14:12.211] [PSS] [info] [21512|2660]transport_client_tcp3.cpp:59 Start: server= 127.0.0.1:54000, local=0.0.0.0:0, this= 0x1896fc8b610
+[2026-02-06 19:14:14.254] [PSS] [info] [21512|24692]streaming_client_impl.cpp:62 NotifyConnectResult: network connect to service result= 10061, this= 0x189959f0280
+[2026-02-06 19:14:14.254] [PSS] [error] [21512|24692]streaming_client_impl.cpp:64 NotifyConnectResult: connect to service network error= 10061, this= 0x189959f0280
+[2026-02-06 19:14:14.254] [PSS] [error] [21512|2660]streaming_driver_interface_impl.cpp:332 NotifyClientConnectResult: connect to service failed, Network Error, this= 0x18a6aca0560
+[2026-02-06 19:14:14.254] [PSS] [error] [21512|24692]transport_client_tcp3.cpp:129 HandleConnect: connected error= Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение, this= 0x1896fc8b610
+[2026-02-06 19:18:32.520] [PSS] [debug] [21512|21228]streaming_driver_interface_impl.cpp:19 StreamingDriverInterfaceImpl: callback= 0x189d6d4c550, this= 0x189d6b6c720
+[2026-02-06 19:18:32.521] [PSS] [error] [21512|21228]streaming_driver_interface_impl.cpp:115 SetTrackingOrigin: streaming not started, this= 0x189d6b6c720
+[2026-02-06 19:18:32.521] [PSS] [info] [21512|21228]streaming_driver_interface_impl.cpp:24 ConnectToService: connect to service, client_id= 6D6H49sY6e96nsSR, this= 0x189d6b6c720
+[2026-02-06 19:18:32.521] [PSS] [info] [21512|21228]streaming_client_impl.cpp:25 ConnectToService: client_id= 6D6H49sY6e96nsSR, name= 3D Engine, desp= StreamingSceneRender, this= 0x18a65bc44d0
+[2026-02-06 19:18:32.521] [PSS] [debug] [21512|25864]streaming_client_impl.cpp:137 InvokeConnectToService: connect to service through the network, port= 54000, this= 0x18a65bc44d0
+[2026-02-06 19:18:32.521] [PSS] [debug] [21512|25864]transport_client_tcp3.cpp:34 Start: buffer size(send\recv): 2097152\2097152, this= 0x1896fc8c090
+[2026-02-06 19:18:32.521] [PSS] [info] [21512|25864]transport_client_tcp3.cpp:59 Start: server= 127.0.0.1:54000, local=0.0.0.0:0, this= 0x1896fc8c090
+[2026-02-06 19:18:34.554] [PSS] [info] [21512|23352]streaming_client_impl.cpp:62 NotifyConnectResult: network connect to service result= 10061, this= 0x18a65bc44d0
+[2026-02-06 19:18:34.554] [PSS] [error] [21512|23352]streaming_client_impl.cpp:64 NotifyConnectResult: connect to service network error= 10061, this= 0x18a65bc44d0
+[2026-02-06 19:18:34.555] [PSS] [error] [21512|25864]streaming_driver_interface_impl.cpp:332 NotifyClientConnectResult: connect to service failed, Network Error, this= 0x189d6b6c720
+[2026-02-06 19:18:34.555] [PSS] [error] [21512|23352]transport_client_tcp3.cpp:129 HandleConnect: connected error= Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение, this= 0x1896fc8c090

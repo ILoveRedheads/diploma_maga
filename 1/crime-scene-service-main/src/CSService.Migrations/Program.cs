@@ -1,0 +1,49 @@
+﻿using System;
+using FluentMigrator.Runner;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace CSService.Migrations;
+
+public class Program
+{
+    private const string ENVIRONMENT_VARIABLE_NAME = "ASPNETCORE_ENVIRONMENT";
+    private const string DATABASE_NAME = "CSService";
+
+    static void Main(string[] args) {
+        using var serviceProvider = CreateServices();
+        using var scope = serviceProvider.CreateScope();
+        UpdateDatabase(scope.ServiceProvider);
+    }
+
+    private static ServiceProvider CreateServices() {
+        var env = Environment.GetEnvironmentVariable(ENVIRONMENT_VARIABLE_NAME);
+        var config = new ConfigurationBuilder()
+            .AddJsonFile($"Configs/connectionStrings.{env}.json", optional: true)
+            .AddEnvironmentVariables()
+            .Build();
+
+
+        return new ServiceCollection()
+            .AddFluentMigratorCore()
+            .AddSingleton<IConfiguration>(config)
+            .ConfigureRunner(rb => rb
+                .AddSQLite()
+                .WithGlobalConnectionString(sp => {
+                    var connectionString = sp
+                        .GetRequiredService<IConfiguration>()
+                        .GetConnectionString(DATABASE_NAME)
+                            ?? throw new ArgumentNullException(DATABASE_NAME);
+
+                    return connectionString;
+                })
+                .ScanIn(typeof(Program).Assembly).For.Migrations())
+            .AddLogging(lb => lb.AddFluentMigratorConsole())
+            .BuildServiceProvider(false);
+    }
+
+    private static void UpdateDatabase(IServiceProvider serviceProvider) {
+        var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
+        runner.MigrateUp();
+    }
+}

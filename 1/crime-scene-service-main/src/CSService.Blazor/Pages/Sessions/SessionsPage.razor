@@ -1,0 +1,34 @@
+﻿@page "/sessions"
+@inherits BasePage
+
+<ShowSessionModalWindow @ref="@_showSessionModalWindow" OnDelete="GetPage" />
+
+<Pagination
+    EntitiesCount="@_sessions.TotalCount"
+    PageQuery="@_pageQuery"
+    EnableSearch="@true"
+    PageQueryChanged="GetPage">
+
+    <Body>
+        <LoadingContent IsLoadingFinish="@_isLoadingFinish">
+            @if (_sessions.Count > 0)
+            {
+                <div class="entity-page">
+                    @foreach (var session in _sessions.Data)
+                    {
+                        <div class="entity-card" @onclick="@(() => _showSessionModalWindow.OpenModalWindow(session.Id))">
+                            <span>Сцена: <span class="bold">@session.SceneName</span></span>
+                            <span>Имя студента: <span class="bold">@session.FirstName</span></span>
+                            <span>Фамилия студента: <span class="bold">@session.LastName</span></span>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="big-text">Записей не найденно</div>
+            }
+        </LoadingContent>
+    </Body>
+
+</Pagination>

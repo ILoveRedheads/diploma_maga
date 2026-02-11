@@ -1,0 +1,27 @@
+﻿<ModalWindow @ref="@_modalWindow" ModalId="CreateScene" WindowWidth="800px">
+    <Header>
+        <div class="app-modal-header-close">
+            <CloseButton OnClick="@_modalWindow.Close"/>
+            <h4 class="modal-title">Создание новой сцены</h4>
+        </div>
+
+        <AddButton Label="Создать" OnClick="@SubmitAsync" />
+    </Header>
+
+    <Body>
+        <LoadingContent IsLoadingFinish="@_isLoadingFinish">
+            <EditForm EditContext="@_editContext">
+                <DataAnnotationsValidator />
+
+                <div class="form-column">
+                    <TextForm Label="Название сцены" @bind-Value="Name" />
+
+                    <div class="form-column">
+                        <label class="input-field-label">Фотография для сцены</label>
+                        <InputFile OnChange="@(args => _inputFile = args.File)" />
+                    </div>
+                </div>
+            </EditForm>
+        </LoadingContent>
+    </Body>
+</ModalWindow>

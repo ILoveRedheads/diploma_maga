@@ -1,0 +1,43 @@
+﻿<ModalWindow @ref="@_modalWindow" ModalId="CreateVrHeadset" WindowWidth="700px" ModalBodyClass="app-scroll-content">
+    <Header>
+        <div class="app-modal-header-close">
+            <CloseButton OnClick="@_modalWindow.Close" />
+            <h4 class="modal-title">@_title</h4>
+        </div>
+
+        <AddButton Label="@_addLabel" OnClick="@SubmitAsync" />
+    </Header>
+
+    <Body>
+        <EditForm EditContext="@_editContext">
+            <DataAnnotationsValidator />
+
+            <div class="form-column">
+                <TextForm Label="Название VR гарнитуры" @bind-Value="@_vrHeadsetSetDto.Name" />
+                <TextForm Label="MAC адрес VR гарнитуры" @bind-Value="@_vrHeadsetSetDto.MacAddress" />
+
+                <Pagination
+                    EntitiesCount="@_scenes.TotalCount"
+                    PageQuery="@_pageQuery"
+                    PageQueryChanged="@GetScenesAsync">
+
+                    <Body>
+                        <label class="input-field-label">Сцена для просмотра</label>
+                        <div class="entity-page">
+                            @foreach (var scene in _scenes.Data)
+                            {
+                                <div
+                                    class="entity-card @(scene.Id == _vrHeadsetSetDto.SceneId ? "selected" : null)"
+                                    @onclick="@(() => _vrHeadsetSetDto.SceneId = scene.Id)">
+
+                                    <span>@scene.Name</span>
+                                    <img src="@scene.PreviewLink" alt="@scene.Name" />
+                                </div>
+                            }
+                        </div>
+                    </Body>
+                </Pagination>
+            </div>
+        </EditForm>
+    </Body>
+</ModalWindow>

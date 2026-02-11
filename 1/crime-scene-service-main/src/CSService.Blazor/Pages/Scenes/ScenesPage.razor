@@ -1,0 +1,35 @@
+﻿@page "/scenes"
+@inherits BasePage
+
+<CreateSceneModal @ref="@_createSceneModal" OnCreate="GetPageAsync" />
+
+<LoadingContent IsLoadingFinish="@_isLoadingFinish">
+    <Pagination
+        EntitiesCount="@_scenes.TotalCount"
+        PageQuery="@_pageQuery"
+        PageQueryChanged="GetPageAsync">
+
+        <Header>
+            <AddButton OnClick="@_createSceneModal.OpenModalWindow" />
+        </Header>
+
+        <Body>
+            @if (_scenes.Count > 0)
+            {
+                <div class="entity-page">
+                    @foreach (var scene in _scenes.Data)
+                    {
+                        <div class="entity-card">
+                            <span>@scene.Name</span>
+                            <img src="@scene.PreviewLink" alt="@scene.Name" />
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="big-text">Записей не найденно</div>
+            }
+        </Body>
+    </Pagination>
+</LoadingContent>
