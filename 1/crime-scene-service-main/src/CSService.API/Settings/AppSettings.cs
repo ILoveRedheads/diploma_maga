@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using CSService.Common.Authorization;
 using CSService.Common.DataAccess;
@@ -10,7 +10,8 @@ namespace CSService.API.Settings;
 
 internal sealed class AppSettings(IConfiguration config) : IConnectionSettings, IJwtSettings, IVoiceRegonitionSettings
 {
-    public string ConnectionString { get; } = config.GetConnectionString("CSService");
+    public string ConnectionString { get; } = config.GetConnectionString("CSService") 
+        ?? throw new InvalidOperationException("ConnectionString 'CSService' not found in configuration!");
 
     public string Issuer { get; } = config["JWT:Issuer"];
 
