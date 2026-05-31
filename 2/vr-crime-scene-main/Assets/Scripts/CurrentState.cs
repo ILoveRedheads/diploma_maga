@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class CurrentState
@@ -9,6 +10,9 @@ public static class CurrentState
     public static string LastName { get; set; }
     public static string GroupName { get; set; }
     public static Texture2D SceneTexture { get; set; }
+    public static List<Texture2D> ScenePhotos { get; set; } = new();
+    public static int CurrentPhotoIndex { get; set; }
+    public static int TotalPhotos { get; set; }
     public static long SessionId { get; set; }
     public static string IPAddress { get; set; } = "192.168.3.2";
 }

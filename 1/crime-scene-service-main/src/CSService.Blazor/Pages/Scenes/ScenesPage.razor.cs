@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Threading.Tasks;
 using CSService.Blazor.Services;
 using CSService.Contracts;
@@ -16,6 +16,7 @@ public partial class ScenesPage
     private PageQuery _pageQuery = new();
     private PageResult<SceneDto> _scenes = new() { Data = Enumerable.Empty<SceneDto>() };
     private CreateSceneModal _createSceneModal;
+    private AddPhotoModal _addPhotoModal;
 
     protected override async Task OnInitializedAsync() {
         await base.OnInitializedAsync();
@@ -28,5 +29,9 @@ public partial class ScenesPage
         _isLoadingFinish = true;
 
         StateHasChanged();
+    }
+
+    private void OpenAddPhotoModal(long sceneId) {
+        _addPhotoModal.OpenModal(sceneId);
     }
 }

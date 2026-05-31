@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -41,37 +42,122 @@ internal sealed partial class SceneQueries(
             Filename = fileName
         };
 
-        return await sqlRepository.Query<long>(CREATE_SQL, scene);
+        var sceneId = await sqlRepository.Query<long>(CREATE_SQL, scene);
+
+        // Создаём первую фотографию для сцены
+        var scenePhoto = new ScenePhoto {
+            CreateDate = DateTime.UtcNow,
+            UpdateDate = DateTime.UtcNow,
+            SceneId = sceneId,
+            Filename = fileName,
+            OrderIndex = 0
+        };
+
+        await sqlRepository.Execute(CREATE_SCENE_PHOTO_SQL, scenePhoto);
+
+        return sceneId;
+    }
+
+    public async Task<long> AddPhotoToSceneAsync(long sceneId, string fileName, Stream stream) {
+        var scene = await sqlRepository.Query<Scene>(GET_BY_ID_SQL, new { Id = sceneId })
+            ?? throw new NotFoundException("Сцена не найдена!");
+
+        await fileStorage.Create(stream, ContentType.Scene, fileName);
+        stream.Seek(0, SeekOrigin.Begin);
+
+        await fileStorage.Create(
+            await photoCompressiosService.Compress(stream, 4),
+            ContentType.CompressedPhoto,
+            fileName);
+
+        var maxOrderIndex = await sqlRepository.Query<int>(GET_MAX_ORDER_INDEX_SQL, new { SceneId = sceneId });
+
+        var scenePhoto = new ScenePhoto {
+            CreateDate = DateTime.UtcNow,
+            UpdateDate = DateTime.UtcNow,
+            SceneId = sceneId,
+            Filename = fileName,
+            OrderIndex = maxOrderIndex + 1
+        };
+
+        return await sqlRepository.Query<long>(CREATE_SCENE_PHOTO_SQL, scenePhoto);
     }
 
     public async Task<MediaResult> GetAsync() {
-        var scene = await sqlRepository.Query<Scene>(GET_BY_ID_SQL, new { Id = vrHeadsetContext.SceneId })
-            ?? throw new NotFoundException("Не удалось найти такую сцену!");
+        // Получаем первое фото сцены (с индексом 0)
+        return await GetScenePhotoByIndexAsync(0);
+    }
+
+    public async Task<IEnumerable<ScenePhotoDto>> GetScenePhotosAsync(long sceneId) {
+        var photos = await sqlRepository.QueryList<ScenePhoto>(GET_SCENE_PHOTOS_SQL, new { SceneId = sceneId });
+
+        return photos.Select(photo => new ScenePhotoDto {
+            Id = photo.Id,
+            SceneId = photo.SceneId,
+            OrderIndex = photo.OrderIndex,
+            PhotoLink = string.Format("api/scenes/photos/{0}?hash={1}", photo.Id, HashHelper.ComputeHash(photo.Filename)),
+            PreviewLink = string.Format("api/scenes/photos/{0}/preview?hash={1}", photo.Id, HashHelper.ComputeHash(photo.Filename))
+        });
+    }
+
+    public async Task<MediaResult> GetScenePhotoAsync(long photoId) {
+        var photo = await sqlRepository.Query<ScenePhoto>(GET_SCENE_PHOTO_BY_ID_SQL, new { Id = photoId })
+            ?? throw new NotFoundException("Фотография не найдена!");
 
         return new MediaResult {
-            Content = fileStorage.GetContentStream(ContentType.Scene, scene.Filename),
-            ContentType = "image/" + Path.GetExtension(scene.Filename),
-            Name = scene.Name
+            Content = fileStorage.GetContentStream(ContentType.Scene, photo.Filename),
+            ContentType = "image/" + Path.GetExtension(photo.Filename),
+            Name = photo.Filename
+        };
+    }
+
+    public async Task<SceneMetaDto> GetSceneMetaAsync() {
+        var meta = await sqlRepository.Query<SceneMetaDto>(
+            GET_SCENE_META_SQL,
+            new { MacAddress = vrHeadsetContext.MacAddress })
+            ?? throw new NotFoundException("Для данной VR-гарнитуры не назначена сцена!");
+
+        return meta;
+    }
+
+    public async Task<MediaResult> GetScenePhotoByIndexAsync(int photoIndex) {
+        var photo = await sqlRepository.Query<ScenePhoto>(
+            GET_SCENE_PHOTO_BY_INDEX_SQL,
+            new { MacAddress = vrHeadsetContext.MacAddress, OrderIndex = photoIndex })
+            ?? throw new NotFoundException($"Фотография с индексом {photoIndex} не найдена!");
+
+        return new MediaResult {
+            Content = fileStorage.GetContentStream(ContentType.Scene, photo.Filename),
+            ContentType = "image/" + Path.GetExtension(photo.Filename),
+            Name = photo.Filename
         };
     }
 
     public async Task<PageResult<SceneDto>> GetPageAsync(PageQuery context) {
-        var scenes = (await sqlRepository.QueryList<Scene>(
-                GET_PAGE_SQL,
-                new { context.Limit, Offset = context.Limit * context.Page }))
-            .Select(scene => new SceneDto {
+        var scenes = await sqlRepository.QueryList<Scene>(
+            GET_PAGE_SQL,
+            new { context.Limit, Offset = context.Limit * context.Page });
+
+        var sceneDtos = new List<SceneDto>();
+        
+        foreach (var scene in scenes) {
+            var photoCount = await sqlRepository.Query<int>(COUNT_SCENE_PHOTOS_SQL, new { SceneId = scene.Id });
+            
+            sceneDtos.Add(new SceneDto {
                 Id = scene.Id,
                 Name = scene.Name,
-                PreviewLink = string.Format("api/scenes/{0}/preview?hash={1}", scene.Id, HashHelper.ComputeHash(scene.Filename))
+                PreviewLink = string.Format("api/scenes/{0}/preview?hash={1}", scene.Id, HashHelper.ComputeHash(scene.Filename)),
+                PhotoCount = photoCount
             });
+        }
 
         var totalCount = await sqlRepository.Query<int>(COUNT_SQL);
 
         return new PageResult<SceneDto> {
             Page = context.Page,
-            Count = scenes.Count(),
+            Count = sceneDtos.Count,
             TotalCount = totalCount,
-            Data = scenes
+            Data = sceneDtos
         };
     }
 

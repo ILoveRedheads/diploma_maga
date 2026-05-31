@@ -45,6 +45,8 @@ public class Tablet : MonoBehaviour
         _recordingService = GetComponent<RecordingService>();
         _flashScreen.SetActive(false);
 
+        EnsurePhotoSwitcher();
+
         _makeComment.action.started += MakeCommentAction;
         _makePhoto.action.started += MakePhotoAction;
 
@@ -52,16 +54,21 @@ public class Tablet : MonoBehaviour
             CurrentState.SceneId = -1;
             CurrentState.SceneName = null;
             CurrentState.SceneTexture = null;
+            CurrentState.ScenePhotos.Clear();
+            CurrentState.CurrentPhotoIndex = 0;
+            CurrentState.TotalPhotos = 0;
             CurrentState.FirstName = null;
             CurrentState.LastName = null;
             CurrentState.GroupName = null;
 
             SceneManager.LoadSceneAsync("StartScene");
         };
+    }
 
-        RenderSettings.skybox = new Material(Shader.Find("Skybox/Panoramic")) {
-            mainTexture = CurrentState.SceneTexture
-        };
+    private void EnsurePhotoSwitcher() {
+        if (GetComponent<PhotoSwitcher>() == null) {
+            gameObject.AddComponent<PhotoSwitcher>();
+        }
     }
 
     private void Update() {

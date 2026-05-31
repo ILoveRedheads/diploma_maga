@@ -1,4 +1,6 @@
-﻿namespace CSService.Contracts.Scenes;
+using System.Collections.Generic;
+
+namespace CSService.Contracts.Scenes;
 
 public sealed record SceneDto
 {
@@ -7,4 +9,9 @@ public sealed record SceneDto
     public string Name { get; set; }
 
     public string PreviewLink { get; set; }
+
+    /// <summary>
+    /// Количество фотографий в сцене.
+    /// </summary>
+    public int PhotoCount { get; set; }
 }

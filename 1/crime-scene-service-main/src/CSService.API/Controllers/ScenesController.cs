@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using CSService.API.Attributes;
 using CSService.Common.Authorization;
@@ -29,6 +29,19 @@ public sealed class ScenesController(ISceneQueries queries) : ControllerBase
         return Created("api/scene", sceneId);
     }
 
+    [HttpPost("{id:long}/photos")]
+    [Authorize(Roles = Role.Examiner)]
+    public async Task<IActionResult> AddPhoto([FromRoute] long id, IFormFile formFile) {
+        if (formFile.Length == 0) return BadRequest();
+
+        long? photoId;
+        using (var stream = formFile.OpenReadStream()) {
+            photoId = await queries.AddPhotoToSceneAsync(id, formFile.FileName, stream);
+        }
+
+        return Created($"api/scenes/photos/{photoId}", photoId);
+    }
+
     [HttpGet("page")]
     [Authorize(Roles = Role.Examiner)]
     public Task<PageResult<SceneDto>> GetPage([FromQuery] PageQuery context) =>
@@ -38,6 +51,30 @@ public sealed class ScenesController(ISceneQueries queries) : ControllerBase
     [VrHeadsetAuthorization]
     public async Task<IActionResult> GetScene() {
         var result = await queries.GetAsync();
+        return File(result.Content, result.ContentType, result.Name);
+    }
+
+    [HttpGet("meta")]
+    [VrHeadsetAuthorization]
+    public async Task<SceneMetaDto> GetSceneMeta() => await queries.GetSceneMetaAsync();
+
+    [HttpGet("{id:long}/photos")]
+    [Authorize(Roles = Role.Examiner)]
+    public async Task<IActionResult> GetScenePhotos([FromRoute] long id) {
+        var photos = await queries.GetScenePhotosAsync(id);
+        return Ok(photos);
+    }
+
+    [HttpGet("photos/{photoId:long}")]
+    public async Task<IActionResult> GetScenePhoto([FromRoute] long photoId, [FromQuery] string hash) {
+        var result = await queries.GetScenePhotoAsync(photoId);
+        return File(result.Content, result.ContentType, result.Name);
+    }
+
+    [HttpGet("photos/by-index/{photoIndex:int}")]
+    [VrHeadsetAuthorization]
+    public async Task<IActionResult> GetScenePhotoByIndex([FromRoute] int photoIndex) {
+        var result = await queries.GetScenePhotoByIndexAsync(photoIndex);
         return File(result.Content, result.ContentType, result.Name);
     }
 

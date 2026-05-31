@@ -26,7 +26,7 @@ using Microsoft.OpenApi.Models;
 
 namespace CSService.API;
 
-public class Program
+public partial class Program
 {
     static void Main(string[] args) {
         var builder = WebApplication.CreateBuilder(args);
@@ -142,3 +142,5 @@ public class Program
         app.Run();
     }
 }
+
+public partial class Program { }

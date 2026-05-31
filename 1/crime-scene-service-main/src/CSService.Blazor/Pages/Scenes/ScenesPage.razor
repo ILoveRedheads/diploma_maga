@@ -1,7 +1,8 @@
-﻿@page "/scenes"
+@page "/scenes"
 @inherits BasePage
 
 <CreateSceneModal @ref="@_createSceneModal" OnCreate="GetPageAsync" />
+<AddPhotoModal @ref="@_addPhotoModal" OnPhotoAdded="GetPageAsync" />
 
 <LoadingContent IsLoadingFinish="@_isLoadingFinish">
     <Pagination
@@ -20,8 +21,9 @@
                     @foreach (var scene in _scenes.Data)
                     {
                         <div class="entity-card">
-                            <span>@scene.Name</span>
+                            <span>@scene.Name (@scene.PhotoCount фото)</span>
                             <img src="@scene.PreviewLink" alt="@scene.Name" />
+                            <button class="app-button" @onclick="() => OpenAddPhotoModal(scene.Id)">Добавить фото</button>
                         </div>
                     }
                 </div>

@@ -1,0 +1,19 @@
+<ModalWindow @ref="@_modalWindow" ModalId="AddPhoto" WindowWidth="600px">
+    <Header>
+        <div class="app-modal-header-close">
+            <CloseButton OnClick="@_modalWindow.Close"/>
+            <h4 class="modal-title">Добавить фотографию к сцене</h4>
+        </div>
+
+        <AddButton Label="Добавить" OnClick="@AddPhotoAsync" />
+    </Header>
+
+    <Body>
+        <LoadingContent IsLoadingFinish="@_isLoadingFinish">
+            <div class="form-column">
+                <label class="input-field-label">Выберите файл</label>
+                <InputFile OnChange="@LoadFile" accept="image/*" />
+            </div>
+        </LoadingContent>
+    </Body>
+</ModalWindow>
