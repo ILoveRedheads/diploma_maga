@@ -12,6 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/CrimePhoto.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 92c4b6d67ee4672439de22299d8d73d1, type: 2}
     Unity.XR.PICO.LivePreview.Settings: {fileID: 11400000, guid: a1e14fc744993d84f991c450111780f0, type: 2}
     Unity.XR.PXR.Settings: {fileID: 11400000, guid: d88c7c77718f4aa468cec5f8447f8018, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: a56c59081bb609e4b854f19db020b9af, type: 2}

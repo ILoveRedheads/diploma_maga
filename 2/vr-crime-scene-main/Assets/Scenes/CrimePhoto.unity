@@ -2549,6 +2549,7 @@ GameObject:
   - component: {fileID: 979595219}
   - component: {fileID: 979595218}
   - component: {fileID: 979595220}
+  - component: {fileID: 979595221}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2743,6 +2744,18 @@ MonoBehaviour:
     m_Reference: {fileID: 4302621849394237257, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   _spawnDistance: 2
   _rayInteractor: {fileID: 875355877}
+--- !u!114 &979595221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979595212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e3b21c4a5d6e7f9012345678abcd01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1035492076
 GameObject:
   m_ObjectHideFlags: 0

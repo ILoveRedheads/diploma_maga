@@ -153,7 +153,7 @@ public class Login : MonoBehaviour
             }
 
             if (!long.TryParse(webRequest.downloadHandler.text, out var sessionId)) {
-                StartCoroutine(Wait("Ошибка\nНеверный формат ответа со стороны сервера!");
+                StartCoroutine(Wait("Ошибка\nНеверный формат ответа со стороны сервера!"));
                 yield break;
             }
 
